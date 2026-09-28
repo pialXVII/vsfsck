@@ -5,7 +5,7 @@ it finds: a broken superblock, inodes and bitmaps that disagree, data blocks
 claimed by two files, and block pointers that point outside the disk. It is the
 same class of tool as `fsck`, written in C for the VSFS layout below.
 
-Built for CSE321 (Operating Systems) at BRAC University, Spring 2025.
+Built as a team project for CSE321 (Operating Systems) at BRAC University, Spring 2025.
 
 ## Build and run
 
