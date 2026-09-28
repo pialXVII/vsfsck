@@ -1,0 +1,4 @@
+vsfsck
+vsfsck.exe
+tests/images/
+__pycache__/
