@@ -63,8 +63,13 @@ bool inodeUsed[MAX_INODES];
 
 //reads a block from the filesystem image into the provided buffer.
 void readBlock(FILE *fp, int blockNum, void *buffer) {
-    fseek(fp, blockNum * BLOCK_SIZE, SEEK_SET);
-    fread(buffer, BLOCK_SIZE, 1, fp);
+    // A short read means the image is truncated; checking anything after that
+    // would report garbage, so stop with a clear error instead.
+    if (fseek(fp, (long)blockNum * BLOCK_SIZE, SEEK_SET) != 0 ||
+        fread(buffer, BLOCK_SIZE, 1, fp) != 1) {
+        fprintf(stderr, "ERROR: Could not read block %d (image truncated?).\n", blockNum);
+        exit(EXIT_FAILURE);
+    }
 }
 
 //Loads a bitmap from a specified block into a boolean array.
